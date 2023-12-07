@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration | liste des commentaires {% endblock %}
+
+{% block body %}
+    <section>
+        <h1>Commentaire posté par {{ comments[0].author }}</h1>
+
+        <div>
+            {% for comment in comments %}
+                <div>
+                    <p>
+                        <strong>Commentaire</strong><br >
+                        {{ comment.comment }}<br>
+                        <em>Post: {{ comment.post }}</em><br >
+                        <a href="{{ path('user_details_com_deletion', {'comId' : comment.id}) }}" style="color: red;">Retirer ce commentaire</a>
+                    </p>
+
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

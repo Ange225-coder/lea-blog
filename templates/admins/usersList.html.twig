@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Administration | Liste des utilisateurs {% endblock %}
+
+{% block body %}
+    <section>
+        <p>
+            <a href="{{ path('admin_dashboard') }}">HOME</a>
+        </p>
+
+
+        <h1>Liste des utilisateurs ({{allUsers|length }})</h1>
+
+        <p>
+            <a href="#" onclick="window.location.href='/admin/user/searches' ">Rechercher un utilisateur</a>
+        </p>
+
+        {% for users in usersList %}
+            <div class="border">
+                <p>
+                    {{ users.pseudonyme }}
+                </p>
+
+                <p>
+                    <a href="{{ path('admin_user_details', {'userId' : users.id}) }}">Details</a>
+                </p>
+            </div>
+        {% endfor %}
+
+        <div class="pagination">
+            {{ knp_pagination_render(usersList) }}
+        </div>
+    </section>
+{% endblock %}
+
+
+
+
+
+
+
+
+{% block stylesheets %}
+<style>
+    .border {
+        border: 1px solid black;
+        margin-bottom: 10px;
+    }
+</style>
+{% endblock %}

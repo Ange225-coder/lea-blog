@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration | detail de post{% endblock %}
+
+{% block body %}
+    <section>
+        <h1>Detail de l'article : {{ post.title }}</h1>
+
+        <div>
+            <h1>{{ post.title|upper }}</h1>
+            <em>Créer Par {{ post.author }}</em>
+        </div>
+
+        <div>
+            <h2>Contenu</h2>
+            <p>{{ post.content }}</p>
+        </div>
+
+        <h2>Commentaires du post ({{ comments|length }})</h2>
+        {% for com in comments %}
+            <p>
+                {{ com.comment }}<br >
+                <em>Commenté par : {{ com.author }}</em>
+            </p>
+        {% endfor %}
+
+        <p>
+            <a href="{{ path('user_details_post_deletion', {'postId' : post.id}) }}" style="color: red">Supprimer ce post</a>
+        </p>
+    </section>
+
+
+{% endblock %}

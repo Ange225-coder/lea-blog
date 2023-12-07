@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration | liste des commentaires{% endblock %}
+
+{% block body %}
+    <section>
+        <h1>Details du commentaire</h1>
+
+        <div>
+            <p>
+                <strong>Auteur : </strong> {{ comment.author }}
+            </p>
+
+            <p>
+                <strong>Commentaire : </strong> {{ comment.comment }}<br >
+                <em>Créer le {{ comment.commentDate|date('d-m-Y') }}</em>
+            </p>
+        </div>
+
+        <div>
+            <h3>Supprimer ce commentaire</h3>
+
+            {{ form_start(deletion, {'attr' : {'novalidate' : 'novalidate'}}) }}
+                <div>
+                    {{ form_errors(deletion.password) }}
+                    <p>{{ form_widget(deletion.password) }}</p>
+                </div>
+
+                <button type="submit">Supprimer le commentaire</button>
+            {{ form_end(deletion) }}
+        </div>
+    </section>
+{% endblock %}

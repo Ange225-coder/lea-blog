@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Le Blog de Lea{% endblock %}
+
+{% block body %}
+    <section>
+        <h1>Supprimer le post : {{ post.title|upper }}</h1>
+
+        {{ form_start(deletion, {'attr' : {'novalidate' : 'novalidate'}}) }}
+            <div>
+                {{ form_errors(deletion.password) }}
+                <p>{{ form_widget(deletion.password) }}</p>
+            </div>
+
+            <button type="submit">Supprimer le post</button>
+        {{ form_end(deletion) }}
+    </section>
+{% endblock %}

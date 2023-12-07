@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration | liste des articles{% endblock %}
+
+{% block body %}
+    <p>
+        <a href="{{ path('admin_dashboard') }}">HOME</a>
+    </p>
+
+    <section>
+        <h1>Liste des articles créés ({{ postsCounter|length }})</h1>
+
+        <p>
+            <a href="#">Rechercher un article</a>
+        </p>
+
+        {% for posts in postsList %}
+            <div class="border">
+                <p>
+                    {{ posts.title }}<br >
+                    <a href="{{ path('admin_post_details', {'postId' : posts.id}) }}">Details de l'article</a>
+                </p>
+            </div>
+        {% endfor %}
+
+        <div class="pagination">
+            {{ knp_pagination_render(postsList) }}
+        </div>
+    </section>
+{% endblock %}
+
+
+
+
+
+
+
+
+{% block stylesheets %}
+    <style>
+        .border p {
+            border: 1px solid black;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+    </style>
+{% endblock %}

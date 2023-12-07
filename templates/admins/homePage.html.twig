@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Le Blog de Lea | Administration{% endblock %}
+
+{% block body %}
+    <section>
+        <h1>ESPACE RESERVÉ | ADMINISTRATION</h1>
+
+        {% if app.user.username is not defined %}
+            <p>
+                <a href="{{ path('admin_registration') }}">S'enregistrer</a>
+            </p>
+
+            <p>
+                <a href="{{ path('admin_login') }}">Se connecter</a>
+            </p>
+        {% endif %}
+
+        {% if app.user.username is defined %}
+            <p>
+                <a href="{{ path('admin_dashboard') }}">Tableau de bord</a>
+            </p>
+
+            <p>
+                <a href="{{ path('admin_logout') }}" style="color: red;">Se déconnecter</a>
+            </p>
+        {% endif %}
+    </section>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration | Liste des commentaires {% endblock %}
+
+{% block body %}
+    <p>
+        <a href="{{ path('admin_dashboard') }}">HOME</a>
+    </p>
+
+    <section>
+        <h1>Liste des commentaires ({{ commentsList|length }})</h1>
+
+        <p>
+            <a href="#" onclick="window.location.href= '/admin/comment/searches' ">Rechercher un commentaire</a>
+        </p>
+
+        {% for comment in commentsList %}
+            <div>
+                <p>
+                    <strong>Titre :</strong> {{ comment.post|upper }}<br >
+                    <strong>Commentaire :</strong>{{ comment.comment }}<br >
+                    <a href="{{ path('comment_details', {'commentId' : comment.id}) }}">Details du commentaire</a>
+                </p>
+            </div>
+        {% endfor %}
+    </section>
+{% endblock %}

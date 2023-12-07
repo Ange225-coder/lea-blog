@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Le Blog de Lea | Articles - details{% endblock %}
+
+{% block body %}
+    <section>
+        <h1>Detail de l'article {{ itemDetail.title }}</h1>
+
+        <h2>
+            {{ itemDetail.title|upper }}
+        </h2>
+
+        <p>
+            {{ itemDetail.content }}
+        </p>
+
+        <p>
+           Publié le {{ itemDetail.PublicationDate|date('d-m-Y à H:i:s') }}
+        </p>
+
+        <div>
+            {% if app.user.pseudonyme is defined and app.user.pseudonyme == itemDetail.author %}
+                <p>
+                    <a href="{{ path('user_post_modify', {'postId' : itemDetail.id}) }}">Modifier l'article</a>
+                </p>
+
+                <p>
+                    <a href="{{ path('user_post_deletion', {'postId' : itemDetail.id}) }}" style="color: red;">Supprimer l'article</a>
+                </p>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

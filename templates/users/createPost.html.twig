@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Le Blog de Lea{% endblock %}
+
+{% block body %}
+<div>
+    <h1>Créer un post</h1>
+
+    {{ form_start(post, {'attr' : {'novalidate' : 'novalidate'}}) }}
+
+        <div>
+
+            <div>
+                <span>{{ form_label(post.author) }}</span>
+                <p>{{ form_widget(post.author, {'attr' : {'value' : app.user.pseudonyme}}) }}</p>
+            </div>
+
+            <div>
+                <span>{{ form_label(post.title) }}</span>
+                <p>{{ form_widget(post.title) }}</p>
+            </div>
+
+            <div>
+                <span>{{ form_label(post.content) }}</span>
+                <p>{{ form_widget(post.content) }}</p>
+            </div>
+        </div>
+
+        <button type="submit">Créer un post</button>
+
+    {{ form_end(post) }}
+</div>
+{% endblock %}

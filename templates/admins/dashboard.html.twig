@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Le Blog de Lea{% endblock %}
+
+{% block body %}
+    <div>
+        <a href="{{ path('home_page') }}">General home</a>
+    </div>
+
+    <section>
+        <h1>Tableau de bord de {{ app.user.username }}</h1>
+
+        <p>
+            <a href="{{ path('admin_user_list') }}">Liste des utilisateurs enregistrés</a>
+        </p>
+
+        <p>
+            <a href="{{ path('posts_list') }}">Liste des articles du sites</a>
+        </p>
+
+        <p>
+            <a href="{{ path('admin_comments_list') }}">Liste des commentaires postés</a>
+        </p>
+
+        <p>
+            <a href="{{ path('admin_logout') }}" style="color: red;">Se déconnecter</a>
+        </p>
+    </section>
+{% endblock %}

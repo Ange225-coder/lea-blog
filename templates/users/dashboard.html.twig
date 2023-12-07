@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Le Blog de Lea | Tableau de bord{% endblock %}
+
+
+{% block body %}
+    <div>
+        <h1>
+            Tableau de bord de
+            <span>
+                {% if app.user.pseudonyme is defined %}
+                    {{ app.user.pseudonyme }}
+                {% endif %}
+            </span>
+        </h1>
+
+        <p>
+            <a href="{{ path('home_page') }}">HOME</a>
+        </p>
+
+        <p>
+            <a href="{{ path('user_settings', {'id' : app.user.id}) }}">Mes paramètres</a>
+        </p>
+
+        <p>
+            <a href="{{ path('user_logout') }}" style="color: red;">Déconnexion</a>
+        </p>
+    </div>
+{% endblock %}

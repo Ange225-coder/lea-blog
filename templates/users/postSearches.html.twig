@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Le Blog de Lea | {% endblock %}
+
+{% block body %}
+    <p>
+        <a href="{{ path('home_page') }}">HOME</a>
+    </p>
+
+    <h1>Rechercher un post</h1>
+
+    <section>
+        <div>
+            {{ form_start(searches) }}
+            <div>
+                <p>
+                    {{ form_widget(searches.keyword) }}
+                </p>
+
+                <button type="submit">Rechercher</button>
+            </div>
+            {{ form_end(searches) }}
+        </div>
+
+
+        <div>
+            {% if keyword %}
+
+                {% if postsList %}
+
+                    {% set postsFound = postsList|length %}
+
+                    {% if postsFound > 1 %}
+                        {{ postsFound }} résultats trouvés pour "{{ keyword }}"
+                    {% else %}
+                        {{ postsFound }} résultat trouvé pour "{{ keyword }}"
+                    {% endif %}
+                {% else %}
+                    <div>
+                        <p>Aucun résultat trouvé pour "{{ keyword }}"</p>
+
+                        <h3>Avez-vous essayé de </h3>
+
+                        <ul>
+                            <li>vérifier l'orthographe ?</li>
+                            <li>Utiliser moins de mots ?</li>
+                        </ul>
+                    </div>
+
+                {% endif %}
+
+                {% else %}
+                <p>
+                    {# vide au chargement la page pour la première fois #}
+                </p>
+            {% endif %}
+
+
+            {% for posts in postsList %}
+                <p>
+                    {{ posts.title }}<br >
+                    <em>{{ posts.author }}</em><br>
+                    <a href="{{ path('user_item_details', {'itemId' : posts.id}) }}">Details</a>
+                </p>
+            {% endfor %}
+        </div>
+    </section>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration | supprimer commentaires{% endblock %}
+
+{% block body %}
+    <section>
+        <h1>Supprimer un commentaire </h1>
+
+        <div>
+            {{ form_start(deletionCom, {'attr' : {'novalidate' : 'novalidate'}}) }}
+                <div>
+                    {{ form_errors(deletionCom.password) }}
+                    <p>{{ form_widget(deletionCom.password) }}</p>
+                </div>
+
+                <button type="submit">Supprimer le commentaire</button>
+            {{ form_end(deletionCom) }}
+        </div>
+
+    </section>
+{% endblock %}

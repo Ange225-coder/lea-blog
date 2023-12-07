@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Administration | Liste des utilisateurs{% endblock %}
+
+{% block body %}
+    <section>
+        <h1>Detail de l'utilisateur : {{ user.pseudonyme }}</h1>
+
+        <div>
+            <h2>Informations personnelles</h2>
+
+            <hr >
+
+            <p>
+                <strong>Pseudonyme : </strong> {{ user.pseudonyme|capitalize }}
+            </p>
+
+            <p>
+                <strong>Email : </strong> {{ user.email }}
+            </p>
+        </div>
+
+        <div>
+            <h2>Details sur les articles</h2>
+
+            <p>
+                Nombre de posts crée : {{ posts|length }}<br >
+                {% if posts|length > 0  %}
+                    <a href="{{ path('admin_user_details_post_list', {'userId' : user.id}) }}">Voir les posts</a>
+                {% endif %}
+            </p>
+
+            <p>
+                Nombre de commentaires postés : {{ comments|length }}<br >
+                {% if comments|length > 0  %}
+                    <a href="{{ path('user_details_comments_list', {'userId' : user.id}) }}">Voir les commentaires</a>
+                {% endif %}
+            </p>
+        </div>
+
+
+        <p>
+            <a href="{{ path('user_deletion', {'userId' : user.id}) }}" style="color: red;">Rétirer l'utilisateur</a>
+        </p>
+    </section>
+{% endblock %}

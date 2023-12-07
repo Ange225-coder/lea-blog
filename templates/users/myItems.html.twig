@@ -1,0 +1,38 @@
+{% extends 'base.html.twig'%}
+
+{% block title%}Le Blog de Lea | Mes articles{% endblock %}
+
+{% block body %}
+    <section>
+        <h1>
+            Mes articles publiés :
+            <span>
+                {% if myItems is empty %}
+                    <span>(0)</span>
+                {% else %}
+                    <span>({{ myItems|length }})</span>
+                {% endif %}
+            </span>
+        </h1>
+
+        {% if myItems is empty %}
+            <p>
+                Aucun article publié
+            </p>
+
+            <p>
+                <a href="{{ path('user_create_post') }}">Créer un article</a>
+            </p>
+        {%endif %}
+
+        {% for item in myItems %}
+            <div>
+                <p>
+                    <strong>{{ item.title|upper }}</strong><br>
+                    <a href="{{ path('user_item_details', {'itemId' : item.id}) }}">Details de l'article</a>
+                </p>
+            </div>
+
+        {% endfor %}
+    </section>
+{% endblock %}

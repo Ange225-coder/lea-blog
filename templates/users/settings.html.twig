@@ -1,0 +1,120 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Le Blog de Lea{% endblock %}
+
+{% block body %}
+    <div>
+        <h1>Paramètres utilisateur de {{ app.user.pseudonyme }}</h1>
+
+        <section>
+            <h2>Mettre le pseudonyme à jour</h2>
+
+            <div>
+                {{ form_start(updatePseudo, {'attr' : {'novalidate' : 'novalidate'}}) }}
+                    <div>
+                        <div>
+                            {{ form_label(updatePseudo.currentPseudonyme) }}<br >
+                            {{ form_widget(updatePseudo.currentPseudonyme, {'attr' : {'value' : app.user.pseudonyme}}) }}
+                        </div>
+
+                        <div class="marg">
+
+                            {{ form_errors(updatePseudo.newPseudonyme) }}
+                            {{ form_label(updatePseudo.newPseudonyme) }}<br >
+
+                            {{ form_widget(updatePseudo.newPseudonyme) }}
+                        </div>
+
+                        <button type="submit">Mettre à jour le pseudonyme</button>
+                    </div>
+
+                {{ form_end(updatePseudo) }}
+            </div>
+        </section>
+
+
+        <section>
+            <h1>Mettre à jour l'email</h1>
+
+            <div>
+                {{ form_start(updateEmail, {'attr' : {'novalidate' : 'novalidate'}}) }}
+                    <div>
+
+                        <div>
+                            {{ form_label(updateEmail.currentEmail) }}<br >
+                            {{ form_widget(updateEmail.currentEmail, {'attr' : {'value' : app.user.email}}) }}
+                        </div>
+
+                        <div class="marg">
+                            {{ form_errors(updateEmail.newEmail) }}
+                            {{ form_label(updateEmail.newEmail) }}<br >
+                            {{ form_widget(updateEmail.newEmail) }}
+                        </div>
+
+                        <button type="submit">Mettre à jour l'email</button>
+                    </div>
+                {{ form_end(updateEmail) }}
+        </section>
+
+
+        <section>
+            <h1>Mettre à jour le mot de passe</h1>
+
+            {{ form_start(updatePassword, {'attr' : {'novalidate' : 'novalidate'}}) }}
+                <div>
+
+                    <div>
+                        {{ form_errors(updatePassword.currentPassword) }}
+                        {{ form_label(updatePassword.currentPassword) }}<br >
+                        {{ form_widget(updatePassword.currentPassword) }}
+                    </div>
+
+                    <div class="pass-marg">
+                        {{ form_errors(updatePassword.newPassword) }}
+                        {{ form_label(updatePassword.newPassword) }}<br >
+                        {{ form_widget(updatePassword.newPassword) }}
+                    </div>
+
+                    <div>
+                        {{ form_errors(updatePassword.repeatNewPassword) }}
+                        {{ form_label(updatePassword.repeatNewPassword) }}<br >
+                        {{ form_widget(updatePassword.repeatNewPassword) }}
+                    </div>
+
+                    <button type="submit">Mettre à jour le mot de passe</button>
+                </div>
+            {{ form_end(updatePassword) }}
+        </section>
+    </div>
+
+
+    <div class="link">
+        <a href="{{ path('user_delete_account', {'id' : app.user.id}) }}" style="color: red;">Supprimer mon compte</a>
+    </div>
+
+{% endblock %}
+
+
+
+
+
+{% block stylesheets %}
+    <style>
+        .marg {
+            margin-top: 15px;
+        }
+
+        .pass-marg {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            margin-top: 20px;
+        }
+
+        .link {
+            margin-top: 30px;
+        }
+    </style>
+{% endblock %}

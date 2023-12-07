@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Le Blog de Lea{% endblock %}
+
+{% block body %}
+    <section>
+        <h1>Commentez un article</h1>
+
+        <div>
+            <h2>{{ post.title|upper }}</h2>
+
+            <p>
+                {{ post.content }}<br >
+                <em>Par {{ post.author }}</em>
+            </p>
+        </div>
+
+        <div>
+            <h2>Commentaires ({{ comments|length }})</h2>
+
+            <div>
+
+                {% if comments is empty %}
+                    <p>Aucun commentaires</p>
+                {% endif %}
+
+                {% for com in comments %}
+                    <p>
+                        {{ com.comment }}<br >
+
+                        <em><strong>{{ com.author }}</strong></em>
+                    </p>
+                {% endfor %}
+            </div>
+
+
+
+            <div>
+                {{ form_start(commentForm, {'attr' : {'novalidate' : 'novalidate'}}) }}
+                    <div>
+                        {{ form_errors(commentForm.comment) }}
+                        <p>{{ form_widget(commentForm.comment, {'attr' : {'rows' : 6, 'cols' : 50}}) }}</p>
+                    </div>
+
+                    <button type="submit">Poster votre commentaire</button>
+                {{ form_end(commentForm) }}
+            </div>
+
+        </div>
+
+
+    </section>
+{% endblock %}

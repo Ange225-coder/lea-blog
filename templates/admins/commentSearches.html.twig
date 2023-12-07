@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration | Rechercher un commentaire{% endblock %}
+
+{% block body %}
+    <p>
+        <a href="{{ path('admin_dashboard') }}">HOME</a>
+    </p>
+
+    <section>
+        <h1>Rechercher un commentaire</h1>
+
+        <h2>Rechercher un post pour afficher ses commentaires</h2>
+
+        {{ form_start(comSearches) }}
+            <p>
+                {{ form_widget(comSearches.keyword) }}
+            </p>
+
+            <button type="submit">Rechercher</button>
+        {{ form_end(comSearches) }}
+
+        <div>
+            {% if keyword %}
+
+                {% if coms %}
+                    {% set comSearches = coms|length %}
+
+                    {% if comSearches > 1 %}
+                        {{ comSearches }} résultats trouvés "{{ keyword }}"
+                    {% else %}
+                        {{ comSearches }} résultat trouvé "{{ keyword }}"
+                    {% endif %}
+                {% else %}
+                    Aucun résultat pour "{{ keyword }}"
+                {% endif %}
+                
+            {% endif %}
+        </div>
+
+        <div>
+            {% for com in coms  %}
+                <p>
+                    <strong>Commentaire : </strong> {{ com.comment }}<br >
+                    <em>Poste commenté <strong>{{ com.post|upper }}</strong></em><br >
+                    <a href="{{ path('comment_details', {'commentId' : com.id}) }}">Détails</a>
+                </p>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

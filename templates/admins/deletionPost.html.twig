@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration | suppression de post{% endblock %}
+
+{% block body %}
+    <section>
+        <h1>Supprimer le post {{ post.title }}</h1>
+
+        {{ form_start(deletion, {'attr' : {'novalidate' : 'novalidate'}}) }}
+            <div>
+                <div>
+                    {{ form_errors(deletion.password) }}
+                    <p>{{ form_widget(deletion.password) }}</p>
+                </div>
+
+                <button type="submit">Supprimer le post</button>
+            </div>
+        {{ form_end(deletion) }}
+    </section>
+{% endblock %}

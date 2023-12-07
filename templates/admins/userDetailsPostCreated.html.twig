@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration | Liste des post crée{% endblock %}
+
+{% block body %}
+    <section>
+        <h1>Articles postés par {{ posts[0].author }}</h1>
+
+        {% for post in posts %}
+            <p>
+                <strong>Titre : </strong> {{ post.title }}<br >
+                <strong>Contenu : </strong> {{ post.content }}<br >
+                <em>Posté le {{ post.publicationDate|date('d-m-Y') }}</em><br >
+
+                <a href="{{ path('user_details_post_deletion', {'postId' : post.id}) }}" style="color: red">Rétirer l'article</a>
+            </p>
+        {% endfor %}
+
+    </section>
+{% endblock %}

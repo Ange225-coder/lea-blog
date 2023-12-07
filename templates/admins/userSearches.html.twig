@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration | rechercher un utilisateur{% endblock %}
+
+{% block body %}
+    <p>
+        <a href="{{ path('admin_dashboard') }}">HOME</a>
+    </p>
+
+    <section>
+        <h1>Rechercher un utilisateur </h1>
+
+        {{ form_start(searches) }}
+            <div>
+                <p>
+                    {{ form_widget(searches.keyword) }}
+                </p>
+            </div>
+
+            <button type="submit">Rechercher</button>
+        {{ form_end(searches) }}
+
+        <div>
+            {% if keyword %}
+
+                {% if usersList %}
+
+                    {% set users = usersList|length %}
+
+                    {% if users > 1 %}
+                        {{ users }} résultats trouvés pour "{{ keyword }}"
+                    {% else %}
+                        {{ users }} résultat trouvé pour "{{ keyword }}"
+                    {% endif %}
+                {% else %}
+                    Aucun résultat pour "{{ keyword }}"
+                {% endif %}
+            {% endif %}
+        </div>
+
+        <div>
+            {% for users in usersList %}
+                <p>
+                    <strong>{{ users.pseudonyme }}</strong><br >
+                    <a href="{{ path('admin_user_details', {'userId' : users.id}) }}">Details</a>
+                </p>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration | suppression utilisateurs{% endblock %}
+
+{% block body %}
+    <section>
+        <h1>Supprimer l'utilisateur {{ user.pseudonyme }}</h1>
+
+        {{ form_start(userDeletion, {'attr' : {'novalidate' : 'novalidate'}}) }}
+            <div>
+                {{ form_errors(userDeletion.password) }}
+                <p>{{ form_widget(userDeletion.password) }}</p>
+            </div>
+
+            <button type="submit">Supprimer l'utilisateur</button>
+        {{ form_end(userDeletion)}}
+    </section>
+{% endblock %}

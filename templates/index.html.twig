@@ -1,0 +1,114 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+{% endblock %}
+
+{% block title%}Le Blog De Lea | Accueil{% endblock %}
+
+{% block body %}
+
+    {% if app.flashes.success is defined %}
+        {% for flashMessage in app.flashes.success %}
+            <div class="flash-success">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <header>
+        <div>
+            <h1>Le Blog de Léa</h1>
+        </div>
+
+        <div>
+            <div>
+                <p>
+                    <a href="#" onclick="window.location.href='/user/posts/searches' ">Recherche un article</a>
+                </p>
+
+                <p>
+                    <a href="{{ path('user_create_post') }}">Créer un article</a>
+                </p>
+            </div>
+
+            <details>
+                <summary>
+                    {% if app.user.pseudonyme is not defined %}
+                        <i class="bi bi-person-fill"></i>
+                    {% endif %}
+
+                    {% if app.user.pseudonyme is defined %}
+                        {{ app.user.pseudonyme }}
+                    {% endif %}
+                </summary>
+
+                <div>
+                    {% if app.user.pseudonyme is not defined %}
+                        <p>
+                            <a href="{{ path('user_registration') }}">S'inscrire</a>
+                        </p>
+
+                        <p>
+                            <a href="{{ path('user_login') }}">Se connecter</a>
+                        </p>
+                    {% endif %}
+
+
+                    <div>
+                        {% if app.user.pseudonyme is defined %}
+                            <p>
+                                <a href="{{ path('user_dashboard') }}">Tableau de bords</a>
+                            </p>
+
+                            <p>
+                                <a href="{{ path('user_post_items') }}">Mes articles</a>
+                            </p>
+                        {% endif %}
+                    </div>
+                </div>
+            </details>
+        </div>
+    </header>
+
+    {% if app.user.pseudonyme is defined %}
+        <div>
+            <p>
+                <a href="{{ path('user_logout') }}" style="color: red;">Se déconnecter</a>
+            </p>
+        </div>
+    {% endif %}
+
+
+    <section>
+        <p>Derniers articles publiés : </p>
+
+        {% for posts in postsList %}
+            <div>
+                <h3>{{ posts.title }}</h3>
+
+                <div>
+                    {{ posts.content }}
+                </div>
+
+                <div>
+                    <p>
+                        <a href="{{ path('user_post_comments', {'postId' : posts.id}) }}">Commentaires</a>
+                    </p>
+                    <p>Publié par {{ posts.author }}, le {{ posts.publicationDate|date('d-m-Y à H:i:s') }}</p>
+                </div>
+
+            </div>
+        {% endfor %}
+
+        <div class="pagination">
+            {{ knp_pagination_render(postsList) }}
+        </div>
+    </section>
+
+    <div>
+        <p>
+            <a href="{{ path('admin_home') }}">Administration</a>
+        </p>
+    </div>
+{% endblock %}

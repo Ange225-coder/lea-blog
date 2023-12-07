@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Le Blog de Lea{% endblock %}
+
+{% block body %}
+    <section>
+        <h1>
+            Modification de l'article {{ post.title }}
+        </h1>
+
+        {{ form_start(modifyPost, {'attr' : {'novalidate' : 'novalidate'}}) }}
+            <div>
+
+                {{ form_label(modifyPost.currentTitle) }}<br >
+                {{ form_errors(modifyPost.currentTitle) }}
+                <p>{{ form_widget(modifyPost.currentTitle, {'attr' : {'value' : post.title}}) }}</p>
+            </div>
+
+            <div class="area">
+                {{ form_label(modifyPost.currentContent) }}<br >
+                {{ form_errors(modifyPost.currentContent) }}
+                <p>{{ form_widget(modifyPost.currentContent, {'attr' : {'rows': 6, 'cols': 50}})}}</p>
+            </div>
+
+            <button type="submit">Modifier ce post</button>
+        {{ form_end(modifyPost) }}
+    </section>
+{% endblock %}
+
+
+
+
+
+
+
+
+{% block stylesheets %}
+    <style>
+        .area {
+            input {
+                width: 30%;
+
+            }
+        }
+    </style>
+{% endblock %}

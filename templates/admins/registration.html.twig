@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration | S'enregistrer{% endblock %}
+
+{% block body %}
+    <div>
+        <h1>Administration | S'enregistrer</h1>
+
+        {{ form_start(registration, {'attr' : {'novalidate' : 'novalidate'}}) }}
+            <div>
+                <div>
+                    {{ form_errors(registration.username) }}
+                    <p>{{ form_widget(registration.username) }}</p>
+                </div>
+
+                <div>
+                    {{ form_errors(registration.email) }}
+                    <p>{{ form_widget(registration.email) }}</p>
+                </div>
+
+                <div>
+                    {{ form_errors(registration.password) }}
+                    <p>{{ form_widget(registration.password) }}</p>
+                </div>
+
+                <button type="submit">S'enregistrer</button>
+            </div>
+        {{ form_end(registration) }}
+    </div>
+{% endblock %}
