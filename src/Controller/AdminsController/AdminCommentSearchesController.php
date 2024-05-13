@@ -6,7 +6,7 @@
     use Symfony\Component\HttpFoundation\Response;
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-    use Doctrine\Persistence\ManagerRegistry as PersistenceRegistry;
+    use Doctrine\ORM\EntityManagerInterface;
     use Symfony\Component\Routing\Annotation\Route;
     use App\Entity\FormFields\Users\SearchBarFields;
     use App\FormsTypes\Users\SearchBarTypes;
@@ -16,7 +16,7 @@
     {
         #[Route(path: '/admin/comment/searches', name: 'admin_comment_searches')]
         #[IsGranted('ROLE_ADMIN')]
-        public function commentSearches(PersistenceRegistry $doctrine, Request $request): Response
+        public function commentSearches(EntityManagerInterface $entityManager, Request $request): Response
         {
             $comSearchFields = new SearchBarFields();
 
@@ -29,9 +29,9 @@
             $comSearchTypes->handleRequest($request);
 
             if($comSearchTypes->isSubmitted() && $comSearchTypes->isValid()) {
-                $em = $doctrine->getManager();
+                //$em = $doctrine->getManager();
 
-                $comments = $em
+                $comments = $entityManager
                     ->getRepository(Comments::class)
                     ->createQueryBuilder('c')
                     ->where('c.post LIKE :post')

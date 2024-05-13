@@ -10,7 +10,7 @@
     use Symfony\Component\Routing\Annotation\Route;
     use App\Entity\FormFields\Users\RegistrationFields;
     use App\FormsTypes\Users\RegistrationType;
-    use Doctrine\Persistence\ManagerRegistry as PersistenceRegistry;
+    use Doctrine\ORM\EntityManagerInterface;
     use Symfony\Component\HttpFoundation\Session\SessionInterface;
     use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
     use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -21,7 +21,7 @@
     class RegistrationController extends AbstractController
     {
         #[Route(path: '/user/registration', name: 'user_registration')]
-        public function userRegistration(Request $request,PersistenceRegistry $doctrine, SessionInterface $session, UserPasswordHasherInterface $passwordHasher, UserAuthenticatorInterface $authenticator, UsersAuthenticator $formAuthenticator): Response
+        public function userRegistration(Request $request, EntityManagerInterface $entityManager, SessionInterface $session, UserPasswordHasherInterface $passwordHasher, UserAuthenticatorInterface $authenticator, UsersAuthenticator $formAuthenticator): Response
         {
             $userEntity = new Users();
 
@@ -34,13 +34,13 @@
             if($registrationType->isSubmitted() && $registrationType->isValid()) {
                 $formData = $registrationType->getData();
 
-                $em = $doctrine->getManager();
+                //$em = $doctrine->getManager();
 
-                $existingPseudo = $em->getRepository(Users::class)->findOneBy([
+                $existingPseudo = $entityManager->getRepository(Users::class)->findOneBy([
                     'pseudonyme' => $formData->getPseudonyme(),
                 ]);
 
-                $existingEmail = $em->getRepository(Users::class)->findOneBy([
+                $existingEmail = $entityManager->getRepository(Users::class)->findOneBy([
                     'email' => $formData->getEmail(),
                 ]);
 
@@ -62,8 +62,8 @@
                 $userEntity->setEmail($formData->getEmail());
                 $userEntity->setPassword($passwordHasher->hashPassword($userEntity, $formData->getPassword()));
 
-                $em->persist($userEntity);
-                $em->flush();
+                $entityManager->persist($userEntity);
+                $entityManager->flush();
 
                 $session->set('user_id', $userEntity->getId());
 
