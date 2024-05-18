@@ -7,8 +7,8 @@
 
     class PostsFields
     {
-        #[Assert\NotBlank(message: 'Un auteur est requis')]
-        private  $author;
+        //#[Assert\NotBlank(message: 'Un auteur est requis')]
+        //private  $author;
 
         #[Assert\Length(
             min: 3,
@@ -24,10 +24,10 @@
 
 
         //setters
-        public function setAuthor( $author): void
-        {
-            $this->author = $author;
-        }
+        //public function setAuthor( $author): void
+        //{
+         //   $this->author = $author;
+        //}
 
         public function setTitle(string $title): void
         {
@@ -41,10 +41,10 @@
 
 
         //getters
-        public function getAuthor(): string
-        {
-            return $this->author;
-        }
+        //public function getAuthor(): string
+        //{
+       //     return $this->author;
+        //}
 
         public function getTitle(): string
         {

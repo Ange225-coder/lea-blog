@@ -14,7 +14,7 @@
     class AdminUsersListController extends AbstractController
     {
         #[Route(path: '/admin/userList', name: 'admin_user_list')]
-        #[IsGranted('ROLE_ADMIN')]
+        //#[IsGranted('ROLE_ADMIN')]
         public function usersList(PersistenceRegistry $doctrine, PaginatorInterface $paginator, Request $request): Response
         {
             $em = $doctrine->getManager();

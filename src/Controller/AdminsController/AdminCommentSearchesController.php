@@ -15,7 +15,7 @@
     class AdminCommentSearchesController extends AbstractController
     {
         #[Route(path: '/admin/comment/searches', name: 'admin_comment_searches')]
-        #[IsGranted('ROLE_ADMIN')]
+        //#[IsGranted('ROLE_ADMIN')]
         public function commentSearches(EntityManagerInterface $entityManager, Request $request): Response
         {
             $comSearchFields = new SearchBarFields();

@@ -10,7 +10,7 @@
     class DashboardController extends AbstractController
     {
         #[Route(path: '/user/dashboard', name: 'user_dashboard')]
-        #[IsGranted('ROLE_USER')]
+        //#[IsGranted('ROLE_USER')]
         public function userDashboard(): Response
         {
             return $this->render('users/dashboard.html.twig');

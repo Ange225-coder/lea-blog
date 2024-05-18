@@ -10,13 +10,13 @@
     use App\FormsTypes\Users\PostsTypes;
     use App\Entity\Tables\Users\Posts;
     use Symfony\Component\Security\Http\Attribute\IsGranted;
-    use Doctrine\Persistence\ManagerRegistry as PersistenceRegistry;
+    use Doctrine\ORM\EntityManagerInterface;
 
     class PostsController extends AbstractController
     {
         #[Route(path: '/user/post/create', name: 'user_create_post')]
-        #[IsGranted('ROLE_USER')]
-        public function createPost(Request $request, PersistenceRegistry $doctrine): Response
+        //#[IsGranted('ROLE_USER')]
+        public function createPost(Request $request, EntityManagerInterface $entityManager): Response
         {
             $postEntity = new Posts();
 
@@ -29,15 +29,15 @@
             if($postTypes->isSubmitted() && $postTypes->isValid()) {
                 $formData = $postTypes->getData();
 
-                $em = $doctrine->getManager();
+                //$em = $doctrine->getManager();
 
                 $postEntity->setAuthor($this->getUser()->getUserIdentifier());
                 $postEntity->setTitle($formData->getTitle());
                 $postEntity->setContent($formData->getContent());
                 $postEntity->setPublicationDate(new \DateTime());
 
-                $em->persist($postEntity);
-                $em->flush();
+                $entityManager->persist($postEntity);
+                $entityManager->flush();
 
                 return $this->redirectToRoute('home_page');
             }

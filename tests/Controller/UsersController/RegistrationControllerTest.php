@@ -41,9 +41,13 @@
 
             $this->client->submit($form);
 
+            $this->assertTrue($this->client->getResponse()->isRedirect('/user/dashboard'));
+
             $crawlerForRedirectPage = $this->client->followRedirect();
 
             $this->assertSame(1, $crawlerForRedirectPage->filter('html:contains("Tableau de bord")')->count());
+
+            //dump($this->client->getResponse());
         }
 
 

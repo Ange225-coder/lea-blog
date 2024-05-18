@@ -11,19 +11,23 @@
     use Symfony\Component\HttpFoundation\Response;
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\Routing\Annotation\Route;
-    use Doctrine\Persistence\ManagerRegistry as PersistenceRegistry;
+    use Doctrine\ORM\EntityManagerInterface;
     use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
     use Symfony\Component\Security\Http\Attribute\IsGranted;
 
     class DeleteUserController extends AbstractController
     {
         #[Route(path: '/admin/user/deletion/{userId}', name: 'user_deletion')]
-        #[IsGranted('ROLE_ADMIN')]
-        public function deleteUser($userId, Request $request, UserPasswordHasherInterface $passwordHasher, PersistenceRegistry $doctrine): Response
+        //#[IsGranted('ROLE_ADMIN')]
+        public function deleteUser($userId, Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
         {
             //get user to deleted
-            $em = $doctrine->getManager();
-            $user = $em->getRepository(Users::class)->find($userId);
+            //$em = $doctrine->getManager();
+            $user = $entityManager->getRepository(Users::class)->find($userId);
+
+            if(!$user) {
+                throw $this->createNotFoundException('Utilisateur avec l\'identifiant '.$userId.' est introuvable');
+            }
 
             $userDeletionFields = new DeletionsFields();
 
@@ -34,13 +38,15 @@
             if($userDeletionTypes->isSubmitted() && $userDeletionTypes->isValid()) {
                 $formData = $userDeletionTypes->getData();
 
-                $adminLogged = $em->getRepository(Admins::class)->findOneBy([
+                $adminLogged = $entityManager->getRepository(Admins::class)->findOneBy([
                     'username' => $this->getUser()->getUserIdentifier(),
                 ]);
 
                 if($passwordHasher->isPasswordValid($adminLogged, $formData->getPassword())) {
-                    $em->remove($user);
-                    $em->flush();
+                    $entityManager->remove($user);
+                    $entityManager->flush();
+
+                    $this->addFlash('deletion_success', 'Un utilisateur vient d\'être retiré de la base de données');
 
                     return $this->redirectToRoute('admin_user_list');
                 }

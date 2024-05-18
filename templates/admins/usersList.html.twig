@@ -3,6 +3,15 @@
 {% block title %} Administration | Liste des utilisateurs {% endblock %}
 
 {% block body %}
+    {# message if user has been deleted #}
+    {% if app.flashes('deletion_success') is defined %}
+        {% for message in app.flashes('deletion_success') %}
+            <p>
+                {{ message }}
+            </p>
+        {% endfor %}
+    {% endif %}
+
     <section>
         <p>
             <a href="{{ path('admin_dashboard') }}">HOME</a>

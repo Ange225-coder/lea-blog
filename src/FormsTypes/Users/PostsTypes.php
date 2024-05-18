@@ -14,10 +14,10 @@
         public function buildForm(FormBuilderInterface $builder, array $options): void
         {
             $builder
-                ->add('author', TextType::class, [
-                    'attr' => ['readonly' => true],
-                    'label' => 'Auteur',
-                ])
+                //->add('author', TextType::class, [
+                  //  'attr' => ['readonly' => true],
+                    //'label' => 'Auteur',
+                //])
 
                 ->add('title', TextType::class, [
                     'attr' => ['placeholder' => 'Entrer un titre'],

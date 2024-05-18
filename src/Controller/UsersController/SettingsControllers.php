@@ -22,7 +22,7 @@
     class SettingsControllers extends AbstractController
     {
         #[Route(path: '/user/settings/{id}', name: 'user_settings')]
-        #[IsGranted('ROLE_USER')]
+        //#[IsGranted('ROLE_USER')]
         public function userSettings($id, Request $request, UserPasswordHasherInterface $passwordHasher, PersistenceRegistry $doctrine, TokenStorageInterface $tokenStorage): Response
         {
             $em = $doctrine->getManager();
